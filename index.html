@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="style.css" rel="stylesheet"> 
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Expenses Chart Component</title>
+
+  <style>
+    .attribution { font-size: 11px; text-align: center; margin-top: 5vh; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="balance">
+        <h3>My balance</h3>
+        <h4>$921.48</h4>
+      </div>
+      <div class="toggle">
+        <label class="switch">
+        <input type="checkbox"  onclick="myFunction()">
+        <span class="slider round"></span>
+      </label></div>
+  </header>
+
+  <div class="graphdiv" id="graphdiv">
+    <h2>Spending - Last 7 days</h2>
+
+
+
+        <div>
+          <canvas id="myChart"></canvas>
+        </div>
+        <div class="graph">
+      </div>
+
+      <script>
+        const labels = [
+          'mon',
+          'tue',
+          'wed',
+          'thu',
+          'fri',
+          'sat',
+          'sun',
+        ];
+      
+        const data = {
+          labels: labels,
+          datasets: [{
+            label: '',
+            backgroundColor: '#EC755D',
+            borderColor: '#EC755D',
+            data: [17.45, 34.91, 52.36, 31.07, 23.39, 43.28, 25.48],
+            hoverBackgroundColor: '#76B5BC',
+          }]
+        };
+      
+        const config = {
+          type: 'bar',
+          data: data,
+          options: {
+            animation: {
+            delay: 100,            
+            },
+            scales: {
+              x: {
+                grid: {
+                  display: false,
+                  drawBorder: false,
+                }
+              },
+              y: {
+                ticks: {
+                display: false},
+                grid: {
+                  display: false,
+                  drawBorder: false,
+                }
+              }
+            },
+            plugins: {
+              tooltip: {
+
+                callbacks: {
+                    title: function() {},
+                    label: function(context) {
+                        let label = context.dataset.label || '';
+
+                        if (label) {
+                            label += ': ';
+                        }
+                        if (context.parsed.y !== null) {
+                            label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                        }
+                        console.log(label)
+                        return label;
+                    }
+                },
+                displayColors: false
+              },
+              legend: {
+                display: false
+              }
+            },
+            responsive: true,
+            borderRadius: 5,
+            borderSkipped: false,
+          }
+        };
+      </script>
+      <script>
+        const myChart = new Chart(
+          document.getElementById('myChart'),
+          config
+        );
+      </script>
+
+
+
+
+      <div class="line-1"></div>
+      <div class="footer">
+        <div class="total">
+        <p>Total this month</p>
+        <h1>$478.33</h1> 
+        </div>
+        <div class="perc">
+        <h6>+2.4%</h6>
+        <p>from last month</p>
+        </div> 
+      </div>
+  </div>
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+    Coded by <a href="#">github.com/juliosmacedo</a>.
+  </div>
+  <script src="script.js"></script>
+</main>
+</body>
+</html>
