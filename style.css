@@ -17,6 +17,9 @@ body {
     font-family: 'DM Sans';
     max-width: 100vh;
     margin: 2vh;
+    display: flex;
+    margin: auto;
+    justify-content: center;
 }
 
 main {
